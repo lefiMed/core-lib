@@ -1,0 +1,30 @@
+package com.diora.core.security;
+
+public class Security {
+    public static final String DEFAULT_ENCODING = "UTF-8";
+
+    public static String xorMessage(String message) {
+        return xorMessage(message, "hiidioraiih");
+    }
+
+    public static String xorMessage(String message, String key) {
+        try {
+            if (message == null || key == null) return null;
+
+            char[] keys = key.toCharArray();
+            char[] mesg = message.toCharArray();
+
+            int ml = mesg.length;
+            int kl = keys.length;
+            char[] newmsg = new char[ml];
+
+            for (int i = 0; i < ml; i++) {
+                newmsg[i] = (char)(mesg[i] ^ keys[i % kl]);
+            }//for i
+
+            return new String(newmsg);
+        } catch (Exception e) {
+            return null;
+        }
+    }//xorMessage
+}
